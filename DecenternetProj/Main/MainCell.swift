@@ -15,7 +15,7 @@ public final class MainCell: UICollectionViewCell {
     // MARK: Subviews
     private let imageContainer: UIView = {
         let view: UIView = UIView()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = AppUI.Color.dark.withAlphaComponent(0.8)
         return view
     }()
     
@@ -29,7 +29,7 @@ public final class MainCell: UICollectionViewCell {
     private let headerLabel: UILabel = {
         let view: UILabel = UILabel()
         view.font = UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.bold)
-        view.textColor = UIColor.black
+        view.textColor = UIColor.white
         view.numberOfLines = 0
         view.textAlignment = NSTextAlignment.center
         view.adjustsFontSizeToFitWidth = true

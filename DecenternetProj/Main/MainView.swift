@@ -19,7 +19,7 @@ public final class MainView: UIView {
         layout.minimumInteritemSpacing = 10.0
         layout.sectionInset = UIEdgeInsets(top: 10.0, left: 50.0, bottom: 10.0, right: 50.0)
         let view: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        view.backgroundColor = AppUI.Color.dark
+        view.backgroundColor = AppUI.Color.lightYellow
         return view
     }()
     
