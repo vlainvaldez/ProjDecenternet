@@ -11,13 +11,13 @@ import SnapKit
 
 public final class MainView: UIView {
     
-    // MARK: Subviews    
+    // MARK: Subviews
     public let collectionView: UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionView.ScrollDirection.vertical
         layout.minimumLineSpacing = 10.0
         layout.minimumInteritemSpacing = 10.0
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 50.0, bottom: 10.0, right: 50.0)
         let view: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         view.backgroundColor = AppUI.Color.dark
         return view
