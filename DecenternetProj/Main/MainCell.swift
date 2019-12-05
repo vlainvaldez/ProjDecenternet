@@ -1,0 +1,66 @@
+//
+//  MainCell.swift
+//  DecenternetProj
+//
+//  Created by alvin joseph valdez on 12/5/19.
+//  Copyright © 2019 alvin joseph valdez. All rights reserved.
+//
+
+import UIKit
+import SnapKit
+import Kingfisher
+
+public final class MainCell: UICollectionViewCell {
+    
+    
+    // MARK: Subviews
+    public lazy var imageView: UIImageView = {
+        let view: UIImageView = UIImageView()
+        view.clipsToBounds = true
+        view.image = UIImage(named: "Placeholder")
+        return view
+    }()
+    
+    // MARK: - Initializer
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    
+        self.subviews(forAutoLayout: [ self.imageView ])
+        
+        self.imageView.snp.remakeConstraints { (make: ConstraintMaker) -> Void in
+            make.edges.equalToSuperview()
+        }
+        
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: Configurables
+extension MainCell {
+    public static var identifier: String {
+        return "MainCell"
+    }
+    
+    public func configure(with photograph: Photograph) {
+        
+        let imageString: String = photograph.coverPhoto.urls.regular
+        
+        guard
+            let thumbNailURL: URL = URL(string: imageString)
+        else { return }
+        
+        self.imageView.kf.indicatorType = .activity
+        
+        self.imageView.kf.setImage(with: thumbNailURL, placeholder: UIImage(named: "Placeholder"), options: [.scaleFactor(UIScreen.main.scale),
+        .transition(.fade(2)),
+        .cacheOriginalImage]) { (image: Image?, error: Error?, _, _) in
+            if let image = image {
+                print("Task done for: ")
+            }
+        }
+        
+    }
+}
