@@ -62,6 +62,7 @@ public final class MainCell: UICollectionViewCell {
             make.width.height.equalTo(100.0)
         }
         
+        self.setCellCornerRadius()
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -72,6 +73,7 @@ public final class MainCell: UICollectionViewCell {
         super.layoutSubviews()
         
         self.imageView.setRadius()
+        
     }
 }
 
@@ -101,5 +103,13 @@ extension MainCell {
             }
         }
         
+    }
+}
+
+// MARK: - Helper Methods
+extension MainCell {
+    private func setCellCornerRadius() {
+        self.layer.cornerRadius = 10
+        self.layer.masksToBounds = true
     }
 }
