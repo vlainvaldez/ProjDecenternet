@@ -30,10 +30,11 @@ public final class MainCell: UICollectionViewCell {
         let view: UILabel = UILabel()
         view.font = UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.bold)
         view.textColor = UIColor.white
-        view.numberOfLines = 0
+        view.numberOfLines = 1
         view.textAlignment = NSTextAlignment.center
-        view.adjustsFontSizeToFitWidth = true
+        view.adjustsFontSizeToFitWidth = false
         view.text = "Sample header"
+        view.lineBreakMode = .byTruncatingTail
         return view
     }()
     
@@ -53,7 +54,8 @@ public final class MainCell: UICollectionViewCell {
         
         self.headerLabel.snp.remakeConstraints { (make: ConstraintMaker) -> Void in
             make.top.equalToSuperview().offset(5.0)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(20.0)
+            make.trailing.equalToSuperview().inset(20.0)
         }
         
         self.imageView.snp.remakeConstraints { [unowned self] (make: ConstraintMaker) -> Void in

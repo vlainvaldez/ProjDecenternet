@@ -21,8 +21,12 @@ public final class DetailView: UIView {
 
     private let titleLabel: UILabel = {
         let view: UILabel = UILabel()
-        view.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.heavy)
+        view.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.heavy)
+        view.lineBreakMode = .byTruncatingTail
         view.textColor = UIColor.white
+        view.numberOfLines = 1
+        view.textAlignment = .left
+        view.adjustsFontSizeToFitWidth = false
         return view
     }()
 
@@ -186,7 +190,6 @@ public final class DetailView: UIView {
     // MARK: Instance Methods
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
         self.layoutIfNeeded()
         
         self.bannerView.snp.remakeConstraints { [unowned self] (make: ConstraintMaker) -> Void in
@@ -197,10 +200,11 @@ public final class DetailView: UIView {
         self.titleLabel.snp.remakeConstraints { [unowned self] (make: ConstraintMaker) -> Void in
             make.top.equalTo(self.bannerView.snp.bottom).offset(10.0)
             make.leading.equalToSuperview().offset(20.0)
+            make.trailing.equalTo(self.sizeLabel.snp.leading)
         }
 
         self.sizeLabel.snp.remakeConstraints { [unowned self] (make: ConstraintMaker) -> Void in
-            make.top.equalTo(self.bannerView.snp.bottom).offset(15.0)
+            make.top.equalTo(self.bannerView.snp.bottom).offset(10.0)
             make.trailing.equalToSuperview().inset(20.0)
         }
 
