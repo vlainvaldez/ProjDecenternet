@@ -1,8 +1,7 @@
 # ProjDecenternet
 A Sample Project for Scrolling Smoothly
 
-## This is a simple app that only fetch the images from the API and display the list and the details
-using collectionView
+## This is a simple app that only fetch the images from the API and display the list and the details using collectionView
 
 ## Architecture Used
 MVC + Coordinator Pattern
