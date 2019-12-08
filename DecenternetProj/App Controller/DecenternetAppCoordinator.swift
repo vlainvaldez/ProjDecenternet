@@ -16,6 +16,11 @@ open class DecenternetAppCoordinator: AbstractCoordinator {
         self.rootViewController = rootViewController
         super.init()
         
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = AppUI.Color.sky
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+        
         self.window.rootViewController = self.rootViewController
         self.window.makeKeyAndVisible()
         

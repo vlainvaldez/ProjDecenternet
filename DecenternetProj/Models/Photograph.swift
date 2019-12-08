@@ -25,7 +25,6 @@ public struct CoverPhoto: Decodable {
     let id: String
 }
 
-
 public final class Photograph: NSObject, Decodable {
     
     // MARK: - Enums

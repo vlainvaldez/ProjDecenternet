@@ -8,10 +8,10 @@
 
 import Foundation
 
-class DataLoadOperation: Operation {
+public class DataLoadOperation: Operation {
     
-    var photograph: Photograph?
-    var loadingCompletionHandler: ((Photograph) -> Void)?
+    public var photograph: Photograph?
+    public var loadingCompletionHandler: ((Photograph) -> Void)?
     
     private let _photograph: Photograph
     
@@ -19,7 +19,7 @@ class DataLoadOperation: Operation {
         _photograph = photograph
     }
     
-    override func main() {
+    public override func main() {
         
         if isCancelled { return }
         
@@ -28,9 +28,9 @@ class DataLoadOperation: Operation {
         
         if isCancelled { return }
         
-        photograph = _photograph
+        self.photograph = self._photograph
         
-        if let loadingCompleteHandler = loadingCompletionHandler {
+        if let loadingCompleteHandler = self.loadingCompletionHandler {
             DispatchQueue.main.async {
                 loadingCompleteHandler(self._photograph)
             }

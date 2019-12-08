@@ -79,7 +79,7 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
 
         return CGSize(
             width: self.rootView.collectionView.frame.width - 30.0,
-            height: (self.rootView.collectionView.frame.height - 30.0) / 4.0
+            height: (self.rootView.collectionView.frame.height) / 3.5
         )
     }
 }

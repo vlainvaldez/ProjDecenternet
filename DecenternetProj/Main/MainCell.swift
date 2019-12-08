@@ -15,7 +15,7 @@ public final class MainCell: UICollectionViewCell {
     // MARK: Subviews
     private let imageContainer: UIView = {
         let view: UIView = UIView()
-        view.backgroundColor = AppUI.Color.dark.withAlphaComponent(0.8)
+        view.backgroundColor = AppUI.Color.sky
         return view
     }()
     
@@ -38,6 +38,22 @@ public final class MainCell: UICollectionViewCell {
         return view
     }()
     
+    private let likesLabel: UILabel = {
+        let view: UILabel = UILabel()
+        view.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold)
+        view.textColor = UIColor.white
+        view.text = "Likes:"
+        return view
+    }()
+
+    private let likesValueLabel: UILabel = {
+        let view: UILabel = UILabel()
+        view.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold)
+        view.textColor = UIColor.white
+        view.text = "5"
+        return view
+    }()
+    
     // MARK: - Initializer
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,7 +65,8 @@ public final class MainCell: UICollectionViewCell {
         }
         
         self.imageContainer.subviews(forAutoLayout: [
-            self.imageView, self.headerLabel
+            self.imageView, self.headerLabel,
+            self.likesLabel, self.likesValueLabel
         ])
         
         self.headerLabel.snp.remakeConstraints { (make: ConstraintMaker) -> Void in
@@ -62,6 +79,16 @@ public final class MainCell: UICollectionViewCell {
             make.top.equalTo(self.headerLabel.snp.bottom).offset(10.0)
             make.centerX.equalToSuperview()
             make.width.height.equalTo(100.0)
+        }
+        
+        self.likesLabel.snp.remakeConstraints { [unowned self] (make: ConstraintMaker) -> Void in
+            make.top.equalTo(self.imageView.snp.bottom).offset(5.0)
+            make.leading.equalTo(self.imageView).offset(10.0)
+        }
+        
+        self.likesValueLabel.snp.remakeConstraints { [unowned self] (make: ConstraintMaker) -> Void in
+            make.leading.equalTo(self.likesLabel.snp.trailing).offset(5.0)
+            make.top.equalTo(self.likesLabel)
         }
         
         self.setCellCornerRadius()
@@ -96,15 +123,18 @@ extension MainCell {
         self.imageView.kf.indicatorType = .activity
         
         self.headerLabel.text = photograph.title
+        self.likesValueLabel.text = "\(photograph.coverPhoto.likes)"
         
         self.imageView.kf.setImage(with: thumbNailURL, placeholder: UIImage(named: "Placeholder"), options: [.scaleFactor(UIScreen.main.scale),
         .transition(.fade(2)),
-        .cacheOriginalImage]) { (image: Image?, error: Error?, _, _) in
-            if image != nil {
-                print("Task done for: ")
+        .cacheOriginalImage]) { (result: Result) in
+            switch result {
+            case .success(let value):
+                print("Task done for: \(value.source.url?.absoluteString ?? "")")
+            case .failure(let error):
+                print("Job failed: \(error.localizedDescription)")
             }
         }
-        
     }
 }
 

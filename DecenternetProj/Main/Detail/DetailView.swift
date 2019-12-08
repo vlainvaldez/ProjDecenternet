@@ -155,7 +155,7 @@ public final class DetailView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.backgroundColor = AppUI.Color.dark
+        self.backgroundColor = AppUI.Color.green
 
         self.subviews(forAutoLayout: [
                 self.bannerView, self.titleLabel,
@@ -248,10 +248,14 @@ public final class DetailView: UIView {
             options: [
                 .scaleFactor(UIScreen.main.scale),
                 .transition(.fade(1)),
-                .cacheOriginalImage])
-        { (image: Image?, error: Error?, _, _) in
-            if let image = image {
-                print("Task done for: ")
+                .cacheOriginalImage
+            ]
+        ) { (result: Result) in
+            switch result {
+            case .success(let value):
+                print("Task done for: \(value.source.url?.absoluteString ?? "")")
+            case .failure(let error):
+                print("Job failed: \(error.localizedDescription)")
             }
         }
 

@@ -19,7 +19,8 @@ public final class MainView: UIView {
         layout.minimumInteritemSpacing = 10.0
         layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         let view: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        view.backgroundColor = AppUI.Color.lightYellow
+        view.backgroundColor = AppUI.Color.green
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     
@@ -27,7 +28,7 @@ public final class MainView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.blue
+        self.backgroundColor = AppUI.Color.green
         
         self.subviews(forAutoLayout: [
                 self.collectionView
