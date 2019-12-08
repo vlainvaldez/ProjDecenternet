@@ -41,15 +41,17 @@ public final class MainVC: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "FreeHero "
+        self.title = "Random Photos"
 
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: " Back",
-            style: UIBarButtonItem.Style.plain,
-            target: nil,
-            action: nil
-        )
-
+        self.setNavigationUI()
+        self.setTargerActions()
+        
+        if #available(iOS 10.0, *) {
+            self.rootView.collectionView.refreshControl = self.refreshControl
+        } else {
+            self.rootView.collectionView.addSubview(self.refreshControl)
+        }
+        
     }
     
     // MARK: - Stored Properties
@@ -60,6 +62,7 @@ public final class MainVC: UIViewController {
     private var fetchMoreIsEnabled: Bool = false
     private let imageAPIService: ImageAPIService = ImageAPIService()
     private var page: Int = 1
+    private let refreshControl: UIRefreshControl = UIRefreshControl()
 }
 
 // MARK: - Views
@@ -211,5 +214,36 @@ extension MainVC {
     private func goToDetail(photograph: Photograph, detail: Detail) {
         self.delegate?.goToDetail(photograph: photograph, detail: detail)
     }
+    
+    private func setNavigationUI() {
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: " Back",
+            style: UIBarButtonItem.Style.plain,
+            target: nil,
+            action: nil
+        )
+    }
+    
+    private func setTargerActions() {
+        self.refreshControl.addTarget(
+            self,
+            action: #selector(MainVC.refreshData),
+            for: UIControl.Event.valueChanged
+        )
+    }
 
+}
+
+// MARK: - Target Action Methods
+extension MainVC {
+    
+    @objc func refreshData() {
+        self.imageAPIService.getPhotograph { (photographs: [Photograph]) -> Void in
+            self.photographs = photographs
+            DispatchQueue.main.async {
+                self.rootView.collectionView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
 }
